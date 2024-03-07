@@ -4,9 +4,32 @@
 
 scheduler:
   name: scheduler-plugins-scheduler
-  image: registry.k8s.io/scheduler-plugins/kube-scheduler:v0.27.8
+  # image: registry.k8s.io/scheduler-plugins/kube-scheduler:v0.27.8
+  image: mingchen123/my-scheduler-plugin:1.0
   replicaCount: 1
   leaderElect: false
+  kubeconfig: "/etc/kubernetes/kube-scheduler.yaml"
+  # the actual content of the kubeconfig file
+    # apiVersion: v1
+    # clusters:
+    # - cluster:
+    #     certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJRTBTKzZxcTRVWTR3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TXpFeU1ERXhNREUxTVRGYUZ3MHpNekV4TWpneE1ERTFNVEZhTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUUNqUFM1bW15OEdBVll3T0FvTVd2VjJjdFNkUzh1L1lNcVhOZmRUK3JoN0szOVhQNFdxNTNIYWt4QmQKSXk3V0dQQysyUVp6RU5Wb1cxTDFkVzR5RllPVE56eXhzdFZhdUpPWmhNUUZlRkZueFpkdXZ4d1dXOUJia240OQpIUHEzYzMwMzRhQ1BFN2FqKzJpeURwZlVBcEplQlZUcnlqY3AzVnNXT0hMOFpoUXpsSHZMSEtKOUpFR1VwTFE0CkIxWmNBZ203ZURyWmdweDl2bnBXZTlpbmU2UUtHbVhqQWU4NlAzRVZsYzNRVHpzY0dXc0Y4Tks4NWNCUVl5MmYKMkdIVGhrTWtBQ1RDdmNRempkdHBWd1EvMVdlSzQrek1YcmhhWHdoUnpJSmVxWWxQTmZvcUxncHJhV3VXcC9qVgpldUVoS3BnZXhyUkY3VW9DWlB5dkNqUnF6L2RWQWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJUTllNNU1aSDUrS3c0RXVlU29EUWJBSWlQaWxqQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQVB6RXJsc2ttKwo2c3gzMmxjaWNSZ0JHNU5FcklKZzVYcWl2T01QUlVtaXNXMWZ2RWUzL3BpNzV5b3pvSU40QzI4MzZMTnFtbURmCkx6QnpkVWpmNHJURk5OSkFzSWtySmwrbGh6UG5LNUJuL0YyWDdnOEVsRktqU2JiZ1BxT2crbHdtMkYvSTZJMjAKOTBSMU94Mk1NRzArS0YwRFNtTkRFSFA1V2VKVjl2R0lmWU9hVDRZS3ZhakZjZHZtRHpMblNhcUVhZWtsUWpGbQpMZXVIWXNNZE5hR05WY0lCdDhkTVdwL3VUWEtCU2JScHordUlxUEdWWERaQUFUNDVES3M1YkVqay9yQ1lHRXRBCk92aGxzclJ3NzdPa2puTHc1TEF1aXlxSG45NUN3Slo3aDBHcEYzTWJ2VmhPTE02aVo2YzdydythYWl1c2RWQnkKOFoyNGwzTVVCSDNVCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    #     server: https://172.26.128.228:6443
+    #   name: kubernetes
+    # contexts:
+    # - context:
+    #     cluster: kubernetes
+    #     user: system:kube-scheduler
+    #   name: system:kube-scheduler@kubernetes
+    # current-context: system:kube-scheduler@kubernetes
+    # kind: Config
+    # preferences: {}
+    # users:
+    # - name: system:kube-scheduler
+    #     user:
+    #       client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUREVENDQWZXZ0F3SUJBZ0lJUmx1eWtNdERTSVl3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TXpFeU1ERXhNREUxTVRGYUZ3MHlOREV4TXpBeE1ERTFNVFJhTUNBeApIakFjQmdOVkJBTVRGWE41YzNSbGJUcHJkV0psTFhOamFHVmtkV3hsY2pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCCkJRQURnZ0VQQURDQ0FRb0NnZ0VCQU5YQWVyZjJ6dmkzN1F1V09jVmMrWnJEd1ZzaFV2NnpKWDQ5VjFsTlZ6c0YKVzA2N05BUmtoYnluVnB6VTY4OWN1elplcitrQ3U0eUMrQ1RRR25CQVBKbnZka0g0VGZJMnZFeTVDR1luZkZvaAoyY2NVSUVHNC9ETUV6ZmhRRGZzS2Vpa3NKZGxVdWI4M1BlU1FHdTFpUTlzQWN0QlF4YWxRWVcwWlN4VXQycTJBCkttc2J5MnlpNGhDajMyZ045NHdFZmI2ek9jazNMMGNoVWs5U0NnSUo4L1dJVUdCd1YzbWxnelYyKzhFMENBamwKUWdFZDdVMXZ4RkJ2VmVaaEpRaWZxVk9LS05rNGxQRDlWNjF6V012dDR6VWJTZjIyT05CQWs1K3krd29sOTdINwpobEZDNktSSFhrdlA5aFpQYi9ia1FjRGdCRnh6ZDYxQnBwT2NiRTk4UzlNQ0F3RUFBYU5XTUZRd0RnWURWUjBQCkFRSC9CQVFEQWdXZ01CTUdBMVVkSlFRTU1Bb0dDQ3NHQVFVRkJ3TUNNQXdHQTFVZEV3RUIvd1FDTUFBd0h3WUQKVlIwakJCZ3dGb0FVeldET1RHUitmaXNPQkxua3FBMEd3Q0lqNHBZd0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQgpBQlg3cGpBVEVGYjE1eWJIZ2hycUR6OGlXak1CcGl4ZFpNT0I0N2w1NmNDUC9HMGpYVEFWYlVFTXBzWmRiQkZPCndkQnVzeitkV2NmTWQxSlV6cXh6UGR1ZG5EdnFYM21oaVRQUWUrb0JLSDFDaEhtT1lONWpCbkJmdVpiMzYvRTgKWFNxWENFSHdyOVlsakUyajl6VXhBTE5iM1JoV0tMTDZzc1ZQWEkwams2d0dnbzdTbmVzakppeHh2U1BXaHNpLwpMZWt1Mjc2cUVBbGIvQldrSHZ2Yis0aVJabDllWWFDMXlwc2xRYjhIVUNnNUNleWZRUDR0dXAreWJXQStTeUh6CmNacVlHUkFNZmZ6RGkzRkFvbnlBd2c2M3lJUU9HRXlZUGpqS093dFNqUnRpcDVzTjNjU3BpdHFXTGlDRTBUaXAKSWpyVHVlaTh0YkhIUGo0ZDdYbWR5Q009Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    #       client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBMWNCNnQvYk8rTGZ0QzVZNXhWejVtc1BCV3lGUy9yTWxmajFYV1UxWE93VmJUcnMwCkJHU0Z2S2RXbk5UcnoxeTdObDZ2NlFLN2pJTDRKTkFhY0VBOG1lOTJRZmhOOGphOFRMa0laaWQ4V2lIWnh4UWcKUWJqOE13VE4rRkFOK3dwNktTd2wyVlM1dnpjOTVKQWE3V0pEMndCeTBGREZxVkJoYlJsTEZTM2FyWUFxYXh2TApiS0xpRUtQZmFBMzNqQVI5dnJNNXlUY3ZSeUZTVDFJS0Fnbno5WWhRWUhCWGVhV0ROWGI3d1RRSUNPVkNBUjN0ClRXL0VVRzlWNW1FbENKK3BVNG9vMlRpVThQMVhyWE5ZeSszak5SdEovYlk0MEVDVG43TDdDaVgzc2Z1R1VVTG8KcEVkZVM4LzJGazl2OXVSQndPQUVYSE4zclVHbWs1eHNUM3hMMHdJREFRQUJBb0lCQUZic1pqdEhiOVZ2SGtPVwovTGxJM094VjdOeDlTYjN2NWpCWEM1MXlPU1gwUUxSY3BvT2V5VS8xa09CSUtmanlrZU5EVUMvbWY1UmRja0d1Ckt3STQ3U3dBV0V2dGlPMFYyeThzRThGUEQxK3I0bDcxelVSTTBLcUNxcXZ2Q2pCcmkxQVE5dmRSWUJQbGlCTFoKazBtenF6cDFEVHV2alNJVVlQbzN6Zk8zNlBTaXF0ZFhueFg1OGVzdGRSa09BVEdNZTNvMFduQzlST3hIbUFEegpwY3Foa3NSTjFuMTRjbUtOSUpVYVN3Q2Q4S2FBTFJ2enQ0YWVwSzlPdTcvVldncDE0ZG83L2JYNjhyeG8xSFlmCkVObEtBeWpwM05ESFJwRUlMb3hHWWpuZXFlSWwxQnMxblNuL25VRVZ3YzRRTFRqMnZnaEhOYU1aK3hPQ3EyYlEKMnVuWVVzRUNnWUVBNXNycjBseHl2NXN4bGVNbG4vczdSZ0dFS1hBblR5ZUpsYnN6RVgxZTh5ejVKS2JuL1MraQpjMXVDdDV6cWZYQUtTTjMyMXNPc1IvOHZ0dkdFRkx6UWJFNytzSXNNTkVjUTZuZ0Jla1VicDJVWGVpTFhNNStPCnVSRUtLOUpmeDFXYTd1dGovYmFFblFsVUF4VWdlcDA1NzRTcnFnL0ZWZ1NINjdSWnQ4WmtSSE1DZ1lFQTdSa1cKMUxER1hpMEduOTUxdzNoVlNYYmtNUGZBQWY5TEtHQ2pXVDZQLzI0aXNqMDhlREVGMDdvNldSTEVZcW1GMTVWawo3eWJhU1ZjNEhrMTc5aDlmNHdDTTVHRDBwZnY0TWRzZ29uV0t3UFVEL3o0NHNmdXhkc1Q2NEJCUXRHUnBENmFPCjBBbGpnelhMaGdCaTV5bFBrNlkvbklJY1J4WnFMNzFEZzhMTll5RUNnWUJINzFtL2tKY25oNnpWNWgzVkZvNXMKREk3d0I0Z0pFTzYrWDhIVUlycVVteUR3dnFFeWRrVnhKVVhDQzBPL1kwdWhXS1hXWE5qMisrQVlhb0Rib2RwbwoxOXBrbG9Kd1RQSkYwcS9MTjMwZUdORlBmVXFNU2FCSHFMcjkyNjJFeVBib255L2taWjVDQUNWU2JLUlo4MldhCmRVUzRWZ0FSQm9xQytneTR6anAwWndLQmdRQ0w5QnhhN2dJYUF4Lys3RlM5VG1HaG5ORno2anBuczJlTTdRWmYKSHFQblZmNmJFYlNKQ2Y3empPRDJSVEt4UG5ubjJLS2MzR1ZMbDNWanhiOGZlRU9rZm1Xc1JXTUVPMmkxSFREMQpWTWJUd1kxYmRFSUpKWllLa3BtMyswbDRRakVWOE80cDlQRE51Y3BxVGY0VGozb09vTHE1eXIrZ1lxWEppa0c1CkhCc2FvUUtCZ1FDaFNyNFppSjlIcEE0S0VGT2JNa3lpZG03bDc4NkQxZHhMNXpEVmVCMkNoYlVHSDhyWHZXRG4KR3NpYmVpTGhoWjV1bXROeTJXd2FQVEtxS2N6dC81Nkc5TW50bEJrVG1nelREQmlQa0FaN0o3UnlVdjBKQzgwUApVZHlXTlNVMlJRQllGaXBDK0lUZndVRUZoM2p4OVdIMStkNVJzUy9KMFdUVEhHMmM4ZDcyZnc9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
+
 
 controller:
   name: scheduler-plugins-controller
@@ -17,18 +40,32 @@ controller:
 # as they need extra RBAC privileges on metrics.k8s.io.
 
 plugins:
-  enabled: ["Coscheduling","CapacityScheduling","NodeResourceTopologyMatch","NodeResourcesAllocatable"]
-  disabled: ["PrioritySort"] # only in-tree plugins need to be defined here
+  enabled: ["NetworkTraffic"]
+  # ["NetworkTraffic"]
+  # disabled: ["PrioritySort"] # only in-tree plugins need to be defined here
+
+  # enabled: ["NetworkTraffic"]
+  # score:
+  #     enabled:
+  #     - name: 'NetworkTraffic'
+  #     disabled:
+  #     - name: '*' # disable all other score plugins
 
 # Customize the enabled plugins' config.
 # Refer to the "pluginConfig" section of manifests/<plugin>/scheduler-config.yaml.
 # For example, for Coscheduling plugin, you want to customize the permit waiting timeout to 10 seconds:
-pluginConfig:
-- name: Coscheduling
-  args:
-    permitWaitingTimeSeconds: 10 # default is 60
+# pluginConfig:
+# - name: Coscheduling
+#   args:
+#     permitWaitingTimeSeconds: 10 # default is 60
 # Or, customize the other plugins
 # - name: NodeResourceTopologyMatch
 #   args:
 #     scoringStrategy:
 #       type: MostAllocated # default is LeastAllocated
+pluginConfig:
+- name: 'NetworkTraffic'
+  args:
+    prometheusAddress: "http://prometheus-stack-kube-prom-prometheus.monitoring.svc.cluster.local:9090"
+    networkInterface: "eth0"
+    timeRangeInMinutes: 3

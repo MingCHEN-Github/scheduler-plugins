@@ -233,3 +233,32 @@ func SetDefaults_NetworkOverheadArgs(obj *NetworkOverheadArgs) {
 		obj.NetworkTopologyName = &DefaultNetworkTopologyName
 	}
 }
+
+// // SetDefaultNetworkTrafficArgs sets the default parameters for the NetworkTraffic plugin
+// func SetDefaultNetworkTrafficArgs(args *NetworkTrafficArgs) {
+// 	if args.TimeRangeInMinutes == nil {
+// 		defaultTime := int64(5)
+// 		args.TimeRangeInMinutes = &defaultTime
+// 	}
+
+// 	if args.NetworkInterface == nil || *args.NetworkInterface == "" {
+// 		netInterface := "eth0" //The primary network interface
+// 		args.NetworkInterface = &netInterface
+// 	}
+// }
+// SetDefaultNetworkTrafficArgs sets the default parameters for the NetworkTraffic plugin
+func SetDefaults_NetworkTrafficArgs(obj *NetworkTrafficArgs) {
+	// Set default values here.
+	defaultAddress := "http://prometheus-stack-kube-prom-prometheus.monitoring.svc.cluster.local:9090"
+	if obj.Address == nil || *obj.Address == "" {
+		obj.Address = &defaultAddress
+	}
+	if obj.NetworkInterface == nil || *obj.NetworkInterface == "" {
+		defaultInterface := "eth0"
+		obj.NetworkInterface = &defaultInterface
+	}
+	if obj.TimeRangeInMinutes == nil {
+		defaultTime := int64(5)
+		obj.TimeRangeInMinutes = &defaultTime
+	}
+}

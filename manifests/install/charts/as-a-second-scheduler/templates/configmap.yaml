@@ -8,6 +8,8 @@ data:
   scheduler-config.yaml: |
     apiVersion: kubescheduler.config.k8s.io/v1
     kind: KubeSchedulerConfiguration
+    clientConnection:
+      kubeconfig: {{ .Values.scheduler.kubeconfig }}      
     leaderElection:
       leaderElect: {{ .Values.scheduler.leaderElect }}
     profiles:
@@ -19,10 +21,11 @@ data:
           {{- range $.Values.plugins.enabled }}
           - name: {{ title . }}
           {{- end }}
+        
           disabled:
-          {{- range $.Values.plugins.disabled }}
-          - name: {{ title . }}
-          {{- end }}
+            {{- range $.Values.plugins.disabled }}
+            - name: {{ title . }}
+            {{- end }}
       {{- if $.Values.pluginConfig }}
       pluginConfig: {{ toYaml $.Values.pluginConfig | nindent 6 }}
       {{- end }}
